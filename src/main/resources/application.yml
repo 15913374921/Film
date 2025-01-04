@@ -1,0 +1,95 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/partner?serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+    hikari: # 初始化数据库连接，优化时间
+      minimum-idle: 10
+      connection-test-query: SELECT 1
+
+  # swagger
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    servlet:
+      load-on-startup: 1 # 初始化DispatcherServlet，优化时间
+
+  # 邮箱配置
+  mail:
+    #配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # 发送者邮箱
+    username: 1477129018@qq.com
+    # 配置密码，注意不是真的配置密码，而是刚刚申请的授权码
+    password: hssrufjagkirjged
+    # 端口号465或587
+    port: 587
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true  # 启用 STARTTLS
+    # 默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+
+  # redis配置
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    # password:
+    # 连接超时时间
+    timeout: 10s
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# sa-token配置
+sa-token:
+  # token 名称（同时也是 cookie 名称）
+  token-name: Authorization
+  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  timeout: 7200
+  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  is-share: true
+  # 是否输出操作日志
+  is-log: true
+  # token 前缀
+  token-prefix: Bearer
+  # jwt秘钥
+  jwt-secret-key: asdasdasifhueuiwyurfewbfjsdafjk
+  is-permission: true
+
+# tmdb API秘钥
+tmdb:
+  api:
+    key: 1ad3fcc3a67f178a8c8958896787f031
+
+file:
+  upload:
+    path: D:\毕设\partner
+  download:
+    ip: localhost
+
+
