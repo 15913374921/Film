@@ -188,7 +188,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
         if(dbUser == null){
             throw new ServiceException("未找到用户");
         }
-        if(dbUser.getPassword().equals(user.getPassword())) {
+        if (BCrypt.checkpw(user.getPassword(), dbUser.getPassword())) {
             throw new ServiceException("不能和上一次密码一样");
         }
         // 校验邮箱验证码
